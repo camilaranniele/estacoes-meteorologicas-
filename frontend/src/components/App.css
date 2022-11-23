@@ -1,0 +1,81 @@
+.station-filter {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+  }
+  
+  .table {
+    margin-top: 2em;
+  }
+  
+  .table-head {
+    background-color: #81acd8;
+  }
+  
+  .add-station {
+    padding-top: 1em;
+  }
+  
+  .details {
+    display: grid;
+    grid-template-columns: 35% 20% 20% 20%;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "info info info info"
+      "local local local .";
+  }
+  
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #000;
+    box-shadow: 24;
+    padding: 2em;
+  }
+  
+  .modal-title {
+    padding-bottom: 1em;
+  }
+  
+  .modal-inputs {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "nome nome nome codigo-regiao"
+      "uf uf codigo_wmo codigo_wmo"
+      "local local local .";
+    gap: 0.5em;
+    margin-right: 1em;
+  }
+  
+  .modal-inputs .nome {
+    grid-area: nome;
+  }
+  
+  .modal-inputs .codigo-regiao {
+    grid-area: codigo-regiao;
+  }
+  
+  .modal-inputs .uf {
+    grid-area: uf;
+  }
+  
+  .modal-inputs .codigo_wmo {
+    grid-area: codigo_wmo;
+  }
+  
+  .modal-inputs .local {
+    grid-area: local;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5em;
+    padding-top: 2em;
+  }
+  
