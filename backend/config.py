@@ -6,6 +6,7 @@ from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
 CORS(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://empresa_user:123456' \
                                         '@localhost/metereologia'
 
