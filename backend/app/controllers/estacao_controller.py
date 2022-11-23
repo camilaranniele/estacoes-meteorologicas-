@@ -1,7 +1,7 @@
 import argparse
 
 from flask_restful import reqparse, Api, Resource, fields
-
+from sqlalchemy import asc
 from app.models.estacao import EstacaoDataBase
 from app.models.estacao_schema import EstacaoDataBaseSchema
 from config import db
@@ -26,7 +26,7 @@ class Estacao(Resource):
             codigo_wmo=codigo_wmo).first()
         estacao_schema = EstacaoDataBaseSchema()
         resp = estacao_schema.dump(estacao)
-        return {"estacao": resp}, 200
+        return resp, 200
 
     def delete(self, codigo_wmo):
         estacao = EstacaoDataBase.query.filter_by(
@@ -53,19 +53,19 @@ class Estacao(Resource):
         db.session.commit()
 
         estacao_schema = EstacaoDataBaseSchema(
-            only=['id_estacao', 'nome_estacao', 'codigo_regiao', 'uf', 'codigo_wmo', 'latitude', 'longitude',
+            only=['nome_estacao', 'codigo_regiao', 'uf', 'codigo_wmo', 'latitude', 'longitude',
                   'altitude', 'data_fundacao'])
         resp = estacao_schema.dump(estacao)
 
-        return {"estacao": resp}, 200
+        return resp, 200
 
 
 class ListaEstacao(Resource):
     def get(self):
-        estacoes = EstacaoDataBase.query.all()
+        estacoes = EstacaoDataBase.query.order_by(asc(EstacaoDataBase.codigo_wmo)).all()       
         estacao_schema = EstacaoDataBaseSchema(many=True)
         resp = estacao_schema.dump(estacoes)
-        return {"estacoes": resp}, 200
+        return resp, 200
 
     def post(self):
         estacao_json = parser.parse_args()
@@ -78,4 +78,4 @@ class ListaEstacao(Resource):
             estacao["data_fundacao"]
         )
         resp = estacao_schema.dump(estacaoDataBase.create())
-        return {"estacao": resp}, 201
+        return resp, 201
